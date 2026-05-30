@@ -7,91 +7,39 @@ import { ArrowRight, Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/shared/store/cart";
 import { siteConfig } from "@/shared/config/site";
 
-// ── SVG pétalo de rosa ────────────────────────────────────────────────────────
-// Forma orgánica de pétalo: puntiagudo arriba, redondeado abajo
-function RosePetalSvg({ color, w, h }: { color: string; w: number; h: number }) {
-  return (
-    <svg
-      width={w}
-      height={h}
-      viewBox="0 0 10 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Pétalo principal */}
-      <path
-        d="M5,0 C7.5,1.5 10,6 9,11.5 C8,15.5 6.5,17.5 5,18 C3.5,17.5 2,15.5 1,11.5 C0,6 2.5,1.5 5,0 Z"
-        fill={color}
-        opacity="0.92"
-      />
-      {/* Vena central sutil */}
-      <path
-        d="M5,2 C5,8 5,13 5,17.5"
-        stroke="white"
-        strokeWidth="0.35"
-        strokeOpacity="0.35"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-// ── Rose petal burst ──────────────────────────────────────────────────────────
-const ROSE_COLORS = [
-  "#C0185A", // rosa oscuro
-  "#E8336A", // rosa vivo
-  "#F06090", // rosa medio
-  "#F9A8C0", // rosa claro
-  "#FDDDE6", // rosa pálido
-  "#8B0A35", // rojo oscuro
-  "#D4296A", // frambuesa
-  "#FF6B9D", // coral rosa
-  "#FFB7C5", // rosa baby
-  "#C85080", // rosa vintage
+// ── Partículas implodentes ────────────────────────────────────────────────────
+const IMPLODE_COLORS = [
+  "#DBCCBA","#7D5940","#C4A882","#E9DCCE",
+  "#A87D60","#F0E6DA","#2C2C2C","#BEAC96",
+  "#D4B896","#8B5E40","#ECD5BC","#6C4A30",
 ];
 
-type RosePetal = {
+type ImplodeParticle = {
   id: number;
+  startX: number;
+  startY: number;
   color: string;
-  w: number;
-  h: number;
+  size: number;
   delay: number;
-  // trayectoria
-  launchX: number;   // cuánto se aleja horizontalmente
-  launchY: number;   // altura máxima (negativo = hacia arriba)
-  endX: number;      // posición final X
-  endY: number;      // posición final Y (positivo = cayó al suelo)
-  rotate1: number;   // rotación en el pico
-  rotate2: number;   // rotación final
 };
 
-function buildPetals(count = 22): RosePetal[] {
+function buildParticles(count = 24): ImplodeParticle[] {
   return Array.from({ length: count }, (_, i) => {
-    const angle = (i * 360) / count + (Math.random() * 28 - 14);
+    const angle = (i * 360 / count) + (Math.random() * 22 - 11);
     const rad   = (angle * Math.PI) / 180;
-    const dist  = 55 + Math.random() * 75;
-    const lx    = Math.cos(rad) * dist;
-    // sesgo hacia arriba: pétalos que van hacia arriba suben más
-    const upBias = Math.sin(rad) < 0 ? 60 : 10;
-    const ly     = Math.sin(rad) * dist - upBias;
-    const w      = 10 + Math.random() * 10; // 10–20 px
+    const dist  = 72 + Math.random() * 110;
     return {
       id: i,
-      color: ROSE_COLORS[Math.floor(Math.random() * ROSE_COLORS.length)],
-      w,
-      h: w * 1.75,
-      delay:   Math.random() * 0.1,
-      launchX: lx,
-      launchY: ly,
-      endX:    lx + (Math.random() * 30 - 15),
-      endY:    ly + 180 + Math.random() * 80, // gravedad: caen abajo del origen
-      rotate1: Math.random() * 260 - 130,
-      rotate2: Math.random() * 540 - 270,
+      startX: Math.cos(rad) * dist,
+      startY: Math.sin(rad) * dist,
+      color:  IMPLODE_COLORS[Math.floor(Math.random() * IMPLODE_COLORS.length)],
+      size:   4 + Math.random() * 7,
+      delay:  i * (0.09 / count) + Math.random() * 0.04,
     };
   });
 }
 
-function RoseBurst({
+function ImplodeParticles({
   originX,
   originY,
   onDone,
@@ -100,40 +48,38 @@ function RoseBurst({
   originY: number;
   onDone: () => void;
 }) {
-  const petals = buildPetals(22);
+  const particles = buildParticles(24);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[500]" aria-hidden="true">
-      {petals.map((p) => (
+      {particles.map((p) => (
         <motion.div
           key={p.id}
           style={{
             position: "absolute",
-            left: originX - p.w / 2,
-            top:  originY - p.h / 2,
-            width:  p.w,
-            height: p.h,
+            left:         originX - p.size / 2,
+            top:          originY - p.size / 2,
+            width:        p.size,
+            height:       p.size,
+            borderRadius: "50%",
+            backgroundColor: p.color,
           }}
-          initial={{ x: 0, y: 0, opacity: 1, rotate: 0, scale: 1 }}
+          initial={{ x: p.startX, y: p.startY, opacity: 0, scale: 1.3 }}
           animate={{
-            // Fase 1 (0→0.45): explotan hacia afuera y arriba
-            // Fase 2 (0.45→1): caen por gravedad y se desvanecen
-            x:       [0,  p.launchX * 0.6,  p.launchX,  p.endX],
-            y:       [0,  p.launchY * 0.5,  p.launchY,  p.endY],
-            opacity: [1,  1,                1,           0],
-            rotate:  [0,  p.rotate1 * 0.5,  p.rotate1,  p.rotate2],
-            scale:   [1,  1.1,              0.9,         0.65],
+            x:       0,
+            y:       0,
+            opacity: [0, 1, 1, 0],
+            scale:   [1.3, 1.1, 0.5, 0],
           }}
           transition={{
-            duration: 1.6,
-            delay:    p.delay,
-            ease:     [0.25, 0.1, 0.4, 1],
-            times:    [0, 0.25, 0.5, 1],
+            // easeIn: empieza lento y acelera hacia el botón (efecto de succión)
+            x:       { duration: 0.72, delay: p.delay, ease: [0.55, 0, 0.85, 1] },
+            y:       { duration: 0.72, delay: p.delay, ease: [0.55, 0, 0.85, 1] },
+            opacity: { duration: 0.72, delay: p.delay, times: [0, 0.12, 0.72, 1] },
+            scale:   { duration: 0.72, delay: p.delay, times: [0, 0.12, 0.72, 1] },
           }}
           onAnimationComplete={p.id === 0 ? onDone : undefined}
-        >
-          <RosePetalSvg color={p.color} w={p.w} h={p.h} />
-        </motion.div>
+        />
       ))}
     </div>
   );
@@ -199,7 +145,7 @@ function QuantityStepper({
 export function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity } = useCart();
   const ctaRef = useRef<HTMLButtonElement>(null);
-  const [burst, setBurst] = useState<{ x: number; y: number } | null>(null);
+  const [implode, setImplode] = useState<{ x: number; y: number } | null>(null);
   const [firing, setFiring] = useState(false);
 
   const buildWhatsAppMessage = useCallback(() => {
@@ -212,30 +158,28 @@ export function CartDrawer() {
   }, [items]);
 
   function handleCotizar() {
-    if (firing) return;
-    if (!ctaRef.current) return;
-
+    if (firing || !ctaRef.current) return;
     const rect = ctaRef.current.getBoundingClientRect();
-    setBurst({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+    setImplode({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
     setFiring(true);
 
-    // Espera 1.2s para que el usuario vea la explosión de rosas
+    // Abre WhatsApp 1s después — el usuario ve toda la implosión
     setTimeout(() => {
       window.open(buildWhatsAppMessage(), "_blank");
       setFiring(false);
-    }, 1200);
+    }, 1000);
   }
 
   return (
     <>
-      {/* Rose burst — z-[500], fuera del panel del carrito */}
+      {/* Implosión — z-[500], visible sobre el panel */}
       <AnimatePresence>
-        {burst && (
-          <RoseBurst
-            key={`rose-${burst.x}-${burst.y}`}
-            originX={burst.x}
-            originY={burst.y}
-            onDone={() => setBurst(null)}
+        {implode && (
+          <ImplodeParticles
+            key={`implode-${implode.x}`}
+            originX={implode.x}
+            originY={implode.y}
+            onDone={() => setImplode(null)}
           />
         )}
       </AnimatePresence>
@@ -243,7 +187,6 @@ export function CartDrawer() {
       <AnimatePresence>
         {isOpen ? (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               className="fixed inset-0 z-[300] bg-[#2C2C2C]/30 backdrop-blur-[2px]"
@@ -253,7 +196,6 @@ export function CartDrawer() {
               aria-hidden="true"
             />
 
-            {/* Panel */}
             <motion.aside
               key="drawer"
               role="dialog" aria-modal="true" aria-label="Tu selección"
@@ -279,12 +221,10 @@ export function CartDrawer() {
                 </button>
               </div>
 
-              {/* Contenido */}
               {items.length === 0 ? (
                 <EmptyCart onClose={closeCart} />
               ) : (
                 <>
-                  {/* Lista */}
                   <ul className="flex-1 overflow-y-auto px-7 py-6" role="list">
                     <AnimatePresence initial={false}>
                       {items.map((item) => (
@@ -301,7 +241,6 @@ export function CartDrawer() {
                             <Image src={item.src} alt={item.alt} fill sizes="90px"
                               className="object-cover object-center" />
                           </div>
-
                           <div className="flex flex-1 flex-col justify-between">
                             <div className="flex items-start justify-between gap-2">
                               <p className="font-[var(--font-serif)] text-[17px] font-normal leading-tight text-[#2C2C2C]">
@@ -329,13 +268,11 @@ export function CartDrawer() {
                     </AnimatePresence>
                   </ul>
 
-                  {/* Footer */}
                   <div className="border-t border-[#DBCCBA] px-7 pb-8 pt-5">
                     <p className="mb-5 font-[var(--font-shanti)] text-[12px] leading-[1.6] text-[#6C6258]">
                       Los precios son referencias. Confirmaremos disponibilidad y precio final por WhatsApp.
                     </p>
 
-                    {/* CTA — patrón del sitio + rose burst */}
                     <button
                       ref={ctaRef}
                       type="button"
@@ -344,28 +281,24 @@ export function CartDrawer() {
                       className="group flex h-[58px] w-full items-center justify-between overflow-hidden border border-[#2C2C2C] bg-transparent p-[8px] transition-all duration-300 ease-out disabled:cursor-wait active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DBCCBA] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F3EC]"
                     >
                       <span className="relative flex h-full w-full items-center justify-between overflow-hidden px-5">
-                        {/* Fill deslizante */}
                         <motion.span
                           className="absolute inset-0 origin-left bg-[#2C2C2C]"
                           initial={{ scaleX: 0 }}
                           animate={firing ? { scaleX: 1 } : { scaleX: 0 }}
-                          whileHover={{ scaleX: 1 }}
                           style={{ transformOrigin: "left" }}
-                          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                         />
-
                         <motion.span
-                          className="relative z-10 font-[var(--font-serif)] text-[18px] font-normal leading-none text-[#2C2C2C]"
-                          animate={firing ? { color: "#F8F3EC" } : { color: "#2C2C2C" }}
-                          transition={{ duration: 0.3 }}
+                          className="relative z-10 font-[var(--font-serif)] text-[18px] font-normal leading-none"
+                          animate={{ color: firing ? "#F8F3EC" : "#2C2C2C" }}
+                          transition={{ duration: 0.25 }}
                         >
-                          {firing ? "Preparando rosas…" : "Cotizar por WhatsApp"}
+                          {firing ? "Enviando…" : "Cotizar por WhatsApp"}
                         </motion.span>
-
                         <motion.span
                           className="relative z-10 shrink-0"
-                          animate={firing ? { color: "#F8F3EC", x: 4 } : { color: "#2C2C2C", x: 0 }}
-                          transition={{ duration: 0.3 }}
+                          animate={{ color: firing ? "#F8F3EC" : "#2C2C2C", x: firing ? 4 : 0 }}
+                          transition={{ duration: 0.25 }}
                         >
                           <ArrowRight size={22} strokeWidth={1.2} aria-hidden="true" />
                         </motion.span>

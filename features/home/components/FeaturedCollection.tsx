@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { RevealImage } from "@/shared/components/ui/RevealImage";
+import { TiltImage } from "@/shared/components/ui/TiltImage";
 import type { HomeContent } from "../types/home.types";
 
 type FeaturedCollectionProps = {
@@ -23,14 +24,14 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
         {/* Columna izquierda */}
         <div className="flex flex-col">
           <article className="group">
-            <div className="relative h-[420px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[500px] lg:h-[485px]">
+            <TiltImage className="relative h-[420px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[500px] lg:h-[485px]">
               <RevealImage
                 src={mainProduct.src}
                 alt={mainProduct.alt}
                 sizes="(max-width: 768px) 100vw, 520px"
                 priority
               />
-            </div>
+            </TiltImage>
             <div className="mt-4 flex items-start justify-between gap-5">
               <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-none text-[#2C2C2C]">
                 {mainProduct.title}
@@ -92,14 +93,14 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
             {[secondProduct, thirdProduct].filter(Boolean).map((item, index) => (
               <article key={item.title} className="group">
-                <div className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[320px] lg:h-[300px] xl:h-[320px]">
+                <TiltImage className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[320px] lg:h-[300px] xl:h-[320px]">
                   <RevealImage
                     src={item.src}
                     alt={item.alt}
                     sizes="(max-width: 768px) 100vw, 360px"
                     delay={0.1 + index * 0.12}
                   />
-                </div>
+                </TiltImage>
                 <motion.div
                   className="mt-4 flex items-start justify-between gap-4"
                   initial={{ opacity: 0, y: 12 }}

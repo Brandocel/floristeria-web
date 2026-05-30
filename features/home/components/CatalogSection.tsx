@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { useCart } from "@/shared/store/cart";
 import { useCartFly } from "@/shared/store/cartFly";
+import { TiltImage } from "@/shared/components/ui/TiltImage";
 import type { HomeContent, ProductCard } from "../types/home.types";
 
 type CatalogSectionProps = {
@@ -54,18 +55,17 @@ function CatalogCard({ item, index }: CatalogCardProps) {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <div
-        ref={imgRef}
-        className="relative h-[330px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[360px] lg:h-[340px] xl:h-[365px]"
-        data-cursor="view"
-      >
-        <Image
-          src={item.src}
-          alt={item.alt}
-          fill
-          sizes="(max-width: 768px) 100vw, 380px"
-          className="scale-[1.04] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.09]"
-        />
+      {/* ref en wrapper transparente para fly-to-cart, TiltImage es el visual */}
+      <div ref={imgRef} data-cursor="view">
+        <TiltImage className="relative h-[330px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[360px] lg:h-[340px] xl:h-[365px]">
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 380px"
+            className="scale-[1.04] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.09]"
+          />
+        </TiltImage>
       </div>
 
       <div className="mt-3 flex items-start justify-between gap-4">
