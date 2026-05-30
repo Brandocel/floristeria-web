@@ -11,6 +11,11 @@ type InstagramSectionProps = {
   social: HomeContent["social"];
 };
 
+const revealVariants = {
+  hidden: { clipPath: "inset(100% 0 0 0)" },
+  visible: { clipPath: "inset(0% 0 0 0)" },
+};
+
 export function InstagramSection({ social }: InstagramSectionProps) {
   const [mainImage, secondImage, thirdImage] = social.images;
 
@@ -22,20 +27,19 @@ export function InstagramSection({ social }: InstagramSectionProps) {
           {mainImage ? (
             <motion.div
               className="relative h-[360px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[460px] lg:h-[430px] xl:h-[465px]"
-              initial={{ opacity: 0, y: 34 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 0.75,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              data-cursor="view"
             >
               <Image
                 src={mainImage.src}
                 alt={mainImage.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 560px"
-                className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.035]"
+                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
               />
             </motion.div>
           ) : null}
@@ -45,11 +49,7 @@ export function InstagramSection({ social }: InstagramSectionProps) {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
             {social.description}
           </motion.p>
@@ -61,11 +61,7 @@ export function InstagramSection({ social }: InstagramSectionProps) {
             initial={{ opacity: 0, y: 34 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.08,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="mb-5 font-[var(--font-shanti)] text-[13px] font-normal tracking-[0.18em] text-[#7D5940]">
               {social.eyebrow}
@@ -113,21 +109,23 @@ export function InstagramSection({ social }: InstagramSectionProps) {
               <motion.div
                 key={image.src}
                 className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[330px] lg:h-[315px] xl:h-[340px]"
-                initial={{ opacity: 0, y: 34 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
+                variants={revealVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  duration: 0.75,
-                  delay: 0.16 + index * 0.1,
+                  duration: 1,
+                  delay: 0.14 + index * 0.14,
                   ease: [0.22, 1, 0.36, 1],
                 }}
+                data-cursor="view"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
-                  className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.04]"
+                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
                 />
               </motion.div>
             ))}

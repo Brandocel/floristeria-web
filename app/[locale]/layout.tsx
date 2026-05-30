@@ -2,6 +2,9 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { Footer } from "@/shared/components/layout/Footer";
 import { Header } from "@/shared/components/layout/Header";
+import { CustomCursor } from "@/shared/components/ui/CustomCursor";
+import { ScrollProgress } from "@/shared/components/ui/ScrollProgress";
+import { SmoothScroll } from "@/shared/providers/SmoothScroll";
 import { isLocale, locales } from "@/shared/config/locales";
 
 export function generateStaticParams() {
@@ -28,10 +31,12 @@ export default async function LocaleLayout({
   }
 
   return (
-    <>
+    <SmoothScroll>
+      <ScrollProgress />
+      <CustomCursor />
       <Header locale={locale} />
       {children}
       <Footer locale={locale} />
-    </>
+    </SmoothScroll>
   );
 }

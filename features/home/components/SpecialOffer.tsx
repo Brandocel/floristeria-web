@@ -10,6 +10,11 @@ type SpecialOfferProps = {
   offer: HomeContent["offer"];
 };
 
+const revealVariants = {
+  hidden: { clipPath: "inset(100% 0 0 0)" },
+  visible: { clipPath: "inset(0% 0 0 0)" },
+};
+
 export function SpecialOffer({ offer }: SpecialOfferProps) {
   const [mainImage, secondaryImage] = offer.images;
 
@@ -42,21 +47,19 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
           {mainImage ? (
             <motion.div
               className="relative mt-10 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-14 lg:h-[410px] xl:h-[440px]"
-              initial={{ opacity: 0, y: 34 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 0.75,
-                delay: 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              data-cursor="view"
             >
               <Image
                 src={mainImage.src}
                 alt={mainImage.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 600px"
-                className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.035]"
+                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
               />
             </motion.div>
           ) : null}
@@ -67,21 +70,19 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
           {secondaryImage ? (
             <motion.div
               className="relative h-[330px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[420px] lg:ml-auto lg:h-[405px] lg:max-w-[560px] xl:h-[435px]"
-              initial={{ opacity: 0, y: 34 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 0.75,
-                delay: 0.18,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              data-cursor="view"
             >
               <Image
                 src={secondaryImage.src}
                 alt={secondaryImage.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 560px"
-                className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.035]"
+                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
               />
             </motion.div>
           ) : null}
@@ -91,11 +92,7 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.24,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.75, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="font-[var(--font-shanti)] text-[15px] font-normal leading-[1.7] text-[#2C2C2C] md:text-[16px]">
               {offer.description}
@@ -107,15 +104,12 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
             >
               <span className="relative flex h-full w-full items-center justify-center gap-4 overflow-hidden px-8 font-[var(--font-serif)] text-[18px] font-normal text-[#2C2C2C]">
                 <span className="absolute inset-0 origin-left scale-x-0 bg-[#DBCCBA] transition-transform duration-300 ease-out group-hover:scale-x-100 group-active:scale-x-100" />
-
-                <span className="relative z-10 whitespace-nowrap">
-                  {offer.ctaLabel}
-                </span>
-
+                <span className="relative z-10 whitespace-nowrap">{offer.ctaLabel}</span>
                 <ArrowRight
                   size={26}
                   strokeWidth={1.2}
                   className="relative z-10 transition-transform duration-300 ease-out group-hover:translate-x-1.5"
+                  aria-hidden="true"
                 />
               </span>
             </Link>

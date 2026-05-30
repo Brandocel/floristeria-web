@@ -1,4 +1,5 @@
 import type { HomeContent } from "../types/home.types";
+import { MarqueeBand } from "@/shared/components/ui/MarqueeBand";
 import { CatalogSection } from "./CatalogSection";
 import { FeaturedCollection } from "./FeaturedCollection";
 import { HomeHero } from "./HomeHero";
@@ -14,8 +15,10 @@ export function HomePageView({ content }: HomePageViewProps) {
   return (
     <main>
       <HomeHero hero={content.hero} />
+      <MarqueeBand />
       <FeaturedCollection popular={content.popular} />
       <MemorySection memories={content.memories} />
+      <MarqueeBand reverse />
       <CatalogSection catalog={content.catalog} />
       <SpecialOffer offer={content.offer} />
       <InstagramSection social={content.social} />

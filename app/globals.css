@@ -27,3 +27,10 @@ a {
 button {
   font: inherit;
 }
+
+/* Cursor personalizado — solo en dispositivos con mouse */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

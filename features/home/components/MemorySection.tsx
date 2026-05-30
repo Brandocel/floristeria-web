@@ -8,6 +8,11 @@ type MemorySectionProps = {
   memories: HomeContent["memories"];
 };
 
+const revealVariants = {
+  hidden: { clipPath: "inset(100% 0 0 0)" },
+  visible: { clipPath: "inset(0% 0 0 0)" },
+};
+
 export function MemorySection({ memories }: MemorySectionProps) {
   return (
     <section
@@ -26,7 +31,6 @@ export function MemorySection({ memories }: MemorySectionProps) {
             <p className="mb-5 font-[var(--font-shanti)] text-[13px] font-normal tracking-[0.18em] text-[#7D5940]">
               {memories.eyebrow}
             </p>
-
             <h2 className="max-w-[650px] font-[var(--font-serif)] text-[clamp(2.7rem,3.9vw,4.35rem)] font-normal leading-[1.05] tracking-[-0.035em] text-[#2C2C2C]">
               {memories.title}
             </h2>
@@ -34,21 +38,19 @@ export function MemorySection({ memories }: MemorySectionProps) {
 
           <motion.div
             className="relative mt-9 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-10 lg:h-[405px] xl:h-[430px]"
-            initial={{ opacity: 0, y: 34 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            data-cursor="view"
           >
             <Image
               src={memories.image.src}
               alt={memories.image.alt}
               fill
               sizes="(max-width: 768px) 100vw, 620px"
-              className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.035]"
+              className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
             />
           </motion.div>
         </div>
@@ -57,21 +59,19 @@ export function MemorySection({ memories }: MemorySectionProps) {
         <div className="flex flex-col">
           <motion.div
             className="relative h-[320px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[400px] lg:h-[360px] xl:h-[385px]"
-            initial={{ opacity: 0, y: 34 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.18,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            data-cursor="view"
           >
             <Image
               src={memories.secondaryImage.src}
               alt={memories.secondaryImage.alt}
               fill
               sizes="(max-width: 768px) 100vw, 560px"
-              className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.035]"
+              className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
             />
           </motion.div>
 
@@ -80,11 +80,7 @@ export function MemorySection({ memories }: MemorySectionProps) {
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.24,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.75, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="font-[var(--font-shanti)] text-[15px] font-normal leading-[1.7] text-[#2C2C2C] md:text-[16px]">
               {memories.description}
@@ -92,9 +88,8 @@ export function MemorySection({ memories }: MemorySectionProps) {
 
             <div className="mt-9 border-l border-[#DBCCBA] pl-6">
               <p className="font-[var(--font-shanti)] text-[22px] font-normal leading-[1.35] text-[#2C2C2C] md:text-[24px]">
-                “{memories.quote}”
+                "{memories.quote}"
               </p>
-
               <p className="mt-4 font-[var(--font-shanti)] text-[12px] font-normal tracking-[0.18em] text-[#7D5940]">
                 {memories.author}
               </p>
