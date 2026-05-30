@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShoppingCart } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { useCart } from "@/shared/store/cart";
 import type { HomeContent, ProductCard } from "../types/home.types";
 
 type CatalogSectionProps = {
@@ -16,25 +18,43 @@ type CatalogCardProps = {
 };
 
 function CatalogCard({ item, index }: CatalogCardProps) {
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+
+  function handleAdd() {
+    addItem({
+      id: item.title,
+      title: item.title,
+      price: item.price,
+      src: item.src,
+      alt: item.alt,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1800);
+  }
+
   return (
     <motion.article
       className="group"
       initial={{ opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{
         duration: 0.7,
         delay: index * 0.08,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <div className="relative h-[330px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[360px] lg:h-[340px] xl:h-[365px]">
+      <div
+        className="relative h-[330px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[360px] lg:h-[340px] xl:h-[365px]"
+        data-cursor="view"
+      >
         <Image
           src={item.src}
           alt={item.alt}
           fill
           sizes="(max-width: 768px) 100vw, 380px"
-          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="scale-[1.04] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.09]"
         />
       </div>
 
@@ -43,7 +63,6 @@ function CatalogCard({ item, index }: CatalogCardProps) {
           <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-tight text-[#2C2C2C]">
             {item.title}
           </h3>
-
           <p className="mt-2 font-[var(--font-shanti)] text-[14px] leading-none text-[#5F564E]">
             {item.price}
           </p>
@@ -52,9 +71,34 @@ function CatalogCard({ item, index }: CatalogCardProps) {
         <button
           type="button"
           aria-label={`Agregar ${item.title} al carrito`}
-          className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center text-[#2C2C2C] transition-all duration-200 hover:-translate-y-0.5 hover:text-[#7D5940] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DBCCBA] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F3EC]"
+          onClick={handleAdd}
+          className="relative mt-1 flex h-8 w-8 shrink-0 items-center justify-center text-[#2C2C2C] transition-all duration-200 hover:-translate-y-0.5 hover:text-[#7D5940] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DBCCBA] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F3EC]"
         >
-          <ShoppingCart size={18} strokeWidth={1.5} />
+          <AnimatePresence mode="wait">
+            {added ? (
+              <motion.span
+                key="check"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-[#7D5940]"
+                aria-hidden="true"
+              >
+                ✓
+              </motion.span>
+            ) : (
+              <motion.span
+                key="cart"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ShoppingCart size={18} strokeWidth={1.5} aria-hidden="true" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
       </div>
     </motion.article>

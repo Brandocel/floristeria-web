@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, ShoppingCart } from "lucide-react";
+import { Search } from "lucide-react";
 import type { Locale } from "@/shared/config/locales";
 import {
   buildLocalizedHref,
@@ -7,6 +7,7 @@ import {
 } from "@/shared/config/navigation";
 import { siteConfig } from "@/shared/config/site";
 import { MobileMenu } from "./MobileMenu";
+import { CartButton } from "./CartButton";
 
 type HeaderProps = {
   locale: Locale;
@@ -57,13 +58,7 @@ export function Header({ locale }: HeaderProps) {
             <Search size={22} strokeWidth={1.7} aria-hidden="true" />
           </Link>
 
-          <Link
-            href={`/${locale}#contacto`}
-            aria-label="Contacto / pedidos"
-            className="flex h-6 w-6 items-center justify-center text-[#2C2C2C] transition-opacity duration-200 hover:opacity-70"
-          >
-            <ShoppingCart size={21} strokeWidth={1.6} aria-hidden="true" />
-          </Link>
+          <CartButton />
         </div>
       </div>
     </header>

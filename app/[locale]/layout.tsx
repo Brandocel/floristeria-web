@@ -2,9 +2,11 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { Footer } from "@/shared/components/layout/Footer";
 import { Header } from "@/shared/components/layout/Header";
+import { CartDrawer } from "@/shared/components/ui/CartDrawer";
 import { CustomCursor } from "@/shared/components/ui/CustomCursor";
 import { ScrollProgress } from "@/shared/components/ui/ScrollProgress";
 import { SmoothScroll } from "@/shared/providers/SmoothScroll";
+import { CartProvider } from "@/shared/store/cart";
 import { isLocale, locales } from "@/shared/config/locales";
 
 export function generateStaticParams() {
@@ -31,12 +33,15 @@ export default async function LocaleLayout({
   }
 
   return (
-    <SmoothScroll>
-      <ScrollProgress />
-      <CustomCursor />
-      <Header locale={locale} />
-      {children}
-      <Footer locale={locale} />
-    </SmoothScroll>
+    <CartProvider>
+      <SmoothScroll>
+        <ScrollProgress />
+        <CustomCursor />
+        <Header locale={locale} />
+        {children}
+        <Footer locale={locale} />
+        <CartDrawer />
+      </SmoothScroll>
+    </CartProvider>
   );
 }
