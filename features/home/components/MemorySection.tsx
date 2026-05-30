@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { RevealImage } from "@/shared/components/ui/RevealImage";
 import type { HomeContent } from "../types/home.types";
 
 type MemorySectionProps = {
@@ -31,51 +31,25 @@ export function MemorySection({ memories }: MemorySectionProps) {
             </h2>
           </motion.div>
 
-          {/* Imagen izquierda: contenedor fija las dimensiones, motion.div anima el reveal */}
-          <div
-            className="relative mt-9 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-10 lg:h-[405px] xl:h-[430px]"
-            data-cursor="view"
-          >
-            <motion.div
-              className="absolute inset-0"
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-              viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-              transition={{ duration: 1.1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                src={memories.image.src}
-                alt={memories.image.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 620px"
-                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-              />
-            </motion.div>
+          <div className="relative mt-9 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-10 lg:h-[405px] xl:h-[430px]">
+            <RevealImage
+              src={memories.image.src}
+              alt={memories.image.alt}
+              sizes="(max-width: 768px) 100vw, 620px"
+              delay={0.1}
+            />
           </div>
         </div>
 
         {/* Columna derecha */}
         <div className="flex flex-col">
-          {/* Imagen derecha */}
-          <div
-            className="relative h-[320px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[400px] lg:h-[360px] xl:h-[385px]"
-            data-cursor="view"
-          >
-            <motion.div
-              className="absolute inset-0"
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-              viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-              transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                src={memories.secondaryImage.src}
-                alt={memories.secondaryImage.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 560px"
-                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-              />
-            </motion.div>
+          <div className="relative h-[320px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[400px] lg:h-[360px] xl:h-[385px]">
+            <RevealImage
+              src={memories.secondaryImage.src}
+              alt={memories.secondaryImage.alt}
+              sizes="(max-width: 768px) 100vw, 560px"
+              delay={0.2}
+            />
           </div>
 
           <motion.div
@@ -88,7 +62,6 @@ export function MemorySection({ memories }: MemorySectionProps) {
             <p className="font-[var(--font-shanti)] text-[15px] font-normal leading-[1.7] text-[#2C2C2C] md:text-[16px]">
               {memories.description}
             </p>
-
             <div className="mt-9 border-l border-[#DBCCBA] pl-6">
               <p className="font-[var(--font-shanti)] text-[22px] font-normal leading-[1.35] text-[#2C2C2C] md:text-[24px]">
                 "{memories.quote}"

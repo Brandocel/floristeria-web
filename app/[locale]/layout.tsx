@@ -4,44 +4,40 @@ import { Footer } from "@/shared/components/layout/Footer";
 import { Header } from "@/shared/components/layout/Header";
 import { CartDrawer } from "@/shared/components/ui/CartDrawer";
 import { CustomCursor } from "@/shared/components/ui/CustomCursor";
+import { ImageLightbox } from "@/shared/components/ui/ImageLightbox";
 import { ScrollProgress } from "@/shared/components/ui/ScrollProgress";
 import { SmoothScroll } from "@/shared/providers/SmoothScroll";
 import { CartProvider } from "@/shared/store/cart";
+import { LightboxProvider } from "@/shared/store/lightbox";
 import { isLocale, locales } from "@/shared/config/locales";
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({
-    locale,
-  }));
+  return locales.map((locale) => ({ locale }));
 }
 
 type LocaleLayoutProps = {
   children: ReactNode;
-  params: Promise<{
-    locale: string;
-  }>;
+  params: Promise<{ locale: string }>;
 };
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LocaleLayoutProps) {
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
-  if (!isLocale(locale)) {
-    notFound();
-  }
+  if (!isLocale(locale)) notFound();
 
   return (
-    <CartProvider>
-      <SmoothScroll>
-        <ScrollProgress />
-        <CustomCursor />
-        <Header locale={locale} />
-        {children}
-        <Footer locale={locale} />
-        <CartDrawer />
-      </SmoothScroll>
-    </CartProvider>
+    <LightboxProvider>
+      <CartProvider>
+        <SmoothScroll>
+          <ScrollProgress />
+          <CustomCursor />
+          <Header locale={locale} />
+          {children}
+          <Footer locale={locale} />
+          <CartDrawer />
+          <ImageLightbox />
+        </SmoothScroll>
+      </CartProvider>
+    </LightboxProvider>
   );
 }

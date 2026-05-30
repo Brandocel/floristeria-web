@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { RevealImage } from "@/shared/components/ui/RevealImage";
 import type { HomeContent } from "../types/home.types";
 
 type FeaturedCollectionProps = {
@@ -12,7 +12,6 @@ type FeaturedCollectionProps = {
 
 export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
   const [mainProduct, secondProduct, thirdProduct] = popular.items;
-
   if (!mainProduct) return null;
 
   return (
@@ -24,27 +23,14 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
         {/* Columna izquierda */}
         <div className="flex flex-col">
           <article className="group">
-            <div
-              className="relative h-[420px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[500px] lg:h-[485px]"
-              data-cursor="view"
-            >
-              <motion.div
-                className="absolute inset-0"
-                initial={{ clipPath: "inset(100% 0 0 0)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={mainProduct.src}
-                  alt={mainProduct.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 520px"
-                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.13]"
-                />
-              </motion.div>
+            <div className="relative h-[420px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[500px] lg:h-[485px]">
+              <RevealImage
+                src={mainProduct.src}
+                alt={mainProduct.alt}
+                sizes="(max-width: 768px) 100vw, 520px"
+                priority
+              />
             </div>
-
             <div className="mt-4 flex items-start justify-between gap-5">
               <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-none text-[#2C2C2C]">
                 {mainProduct.title}
@@ -106,37 +92,20 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
             {[secondProduct, thirdProduct].filter(Boolean).map((item, index) => (
               <article key={item.title} className="group">
-                <div
-                  className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[320px] lg:h-[300px] xl:h-[320px]"
-                  data-cursor="view"
-                >
-                  <motion.div
-                    className="absolute inset-0"
-                    initial={{ clipPath: "inset(100% 0 0 0)" }}
-                    whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                    viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                    transition={{
-                      duration: 1.1,
-                      delay: 0.1 + index * 0.15,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 360px"
-                      className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.13]"
-                    />
-                  </motion.div>
+                <div className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[320px] lg:h-[300px] xl:h-[320px]">
+                  <RevealImage
+                    src={item.src}
+                    alt={item.alt}
+                    sizes="(max-width: 768px) 100vw, 360px"
+                    delay={0.1 + index * 0.12}
+                  />
                 </div>
-
                 <motion.div
                   className="mt-4 flex items-start justify-between gap-4"
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.6, delay: 0.15 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.6, delay: 0.15 + index * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-none text-[#2C2C2C]">
                     {item.title}

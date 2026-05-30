@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { RevealImage } from "@/shared/components/ui/RevealImage";
 import type { HomeContent } from "../types/home.types";
 
 type SpecialOfferProps = {
@@ -32,32 +32,19 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
                 {offer.eyebrow}
               </span>
             </div>
-
             <h2 className="max-w-[560px] font-[var(--font-serif)] text-[clamp(2.9rem,4.15vw,4.45rem)] font-normal leading-[1.04] tracking-[-0.035em] text-[#2C2C2C]">
               {offer.title}
             </h2>
           </motion.div>
 
           {mainImage ? (
-            <div
-              className="relative mt-10 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-14 lg:h-[410px] xl:h-[440px]"
-              data-cursor="view"
-            >
-              <motion.div
-                className="absolute inset-0"
-                initial={{ clipPath: "inset(100% 0 0 0)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                transition={{ duration: 1.1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={mainImage.src}
-                  alt={mainImage.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-                />
-              </motion.div>
+            <div className="relative mt-10 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-14 lg:h-[410px] xl:h-[440px]">
+              <RevealImage
+                src={mainImage.src}
+                alt={mainImage.alt}
+                sizes="(max-width: 768px) 100vw, 600px"
+                delay={0.1}
+              />
             </div>
           ) : null}
         </div>
@@ -65,25 +52,13 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
         {/* Columna derecha */}
         <div className="flex flex-col">
           {secondaryImage ? (
-            <div
-              className="relative h-[330px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[420px] lg:ml-auto lg:h-[405px] lg:max-w-[560px] xl:h-[435px]"
-              data-cursor="view"
-            >
-              <motion.div
-                className="absolute inset-0"
-                initial={{ clipPath: "inset(100% 0 0 0)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={secondaryImage.src}
-                  alt={secondaryImage.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 560px"
-                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-                />
-              </motion.div>
+            <div className="relative h-[330px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[420px] lg:ml-auto lg:h-[405px] lg:max-w-[560px] xl:h-[435px]">
+              <RevealImage
+                src={secondaryImage.src}
+                alt={secondaryImage.alt}
+                sizes="(max-width: 768px) 100vw, 560px"
+                delay={0.2}
+              />
             </div>
           ) : null}
 
@@ -97,7 +72,6 @@ export function SpecialOffer({ offer }: SpecialOfferProps) {
             <p className="font-[var(--font-shanti)] text-[15px] font-normal leading-[1.7] text-[#2C2C2C] md:text-[16px]">
               {offer.description}
             </p>
-
             <Link
               href={offer.ctaHref}
               className="group mt-8 inline-flex h-[58px] w-fit min-w-[190px] items-center justify-center border border-[#D8C9B8] bg-transparent p-[7px] transition-all duration-300 ease-out hover:border-[#DBCCBA] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DBCCBA] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F3EC]"

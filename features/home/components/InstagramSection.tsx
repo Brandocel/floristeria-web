@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/shared/config/site";
+import { RevealImage } from "@/shared/components/ui/RevealImage";
 import type { HomeContent } from "../types/home.types";
 
 type InstagramSectionProps = {
@@ -20,25 +20,12 @@ export function InstagramSection({ social }: InstagramSectionProps) {
         {/* Columna izquierda */}
         <div className="flex flex-col">
           {mainImage ? (
-            <div
-              className="relative h-[360px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[460px] lg:h-[430px] xl:h-[465px]"
-              data-cursor="view"
-            >
-              <motion.div
-                className="absolute inset-0"
-                initial={{ clipPath: "inset(100% 0 0 0)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={mainImage.src}
-                  alt={mainImage.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 560px"
-                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-                />
-              </motion.div>
+            <div className="relative h-[360px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[460px] lg:h-[430px] xl:h-[465px]">
+              <RevealImage
+                src={mainImage.src}
+                alt={mainImage.alt}
+                sizes="(max-width: 768px) 100vw, 560px"
+              />
             </div>
           ) : null}
 
@@ -64,7 +51,6 @@ export function InstagramSection({ social }: InstagramSectionProps) {
             <p className="mb-5 font-[var(--font-shanti)] text-[13px] font-normal tracking-[0.18em] text-[#7D5940]">
               {social.eyebrow}
             </p>
-
             <h2 className="max-w-[720px] font-[var(--font-serif)] text-[clamp(2.8rem,4.4vw,4.75rem)] font-normal leading-[1.02] tracking-[-0.035em] text-[#2C2C2C]">
               {social.title}
             </h2>
@@ -97,27 +83,13 @@ export function InstagramSection({ social }: InstagramSectionProps) {
               <div
                 key={image.src}
                 className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[330px] lg:h-[315px] xl:h-[340px]"
-                data-cursor="view"
               >
-                <motion.div
-                  className="absolute inset-0"
-                  initial={{ clipPath: "inset(100% 0 0 0)" }}
-                  whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-                  viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
-                  transition={{
-                    duration: 1.1,
-                    delay: 0.1 + index * 0.14,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 360px"
-                    className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
-                  />
-                </motion.div>
+                <RevealImage
+                  src={image.src}
+                  alt={image.alt}
+                  sizes="(max-width: 768px) 100vw, 360px"
+                  delay={0.1 + index * 0.12}
+                />
               </div>
             ))}
           </div>
