@@ -22,8 +22,8 @@ export const homeEs = {
         alt: "Florero grande con flores de colores sobre fondo oscuro",
       },
       side: {
-        src: "/images/home/florespequenas.webp",
-        alt: "Ramo floral pequeño con flores rosas y moradas sobre fondo oscuro",
+        src: "/images/home/arreglogrande.png",
+        alt: "Arreglo floral grande con flores frescas y coloridas",
       },
       floating: {
         src: "/images/home/florespequenas.webp",
@@ -39,28 +39,28 @@ export const homeEs = {
       "En nuestra floristería nos enorgullecemos de ofrecer una selecta colección de flores capaces de conquistar corazones y despertar emociones profundas. Explora nuestro paraíso floral y déjate cautivar por la belleza atemporal de cada arreglo.",
     items: [
       {
-        title: "Whispering Blooms",
+        title: "Línea Morada",
         description:
-          "Arreglo floral elegante con flores suaves, textura natural y una composición delicada.",
-        price: "1,000 MXN",
-        src: "/images/home/ramoaurora.webp",
-        alt: "Arreglo floral elegante con flores claras y tonos suaves",
+          "Arreglo floral elegante con flores moradas, textura natural y una composición delicada.",
+        price: "1,250 MXN",
+        src: "/images/home/morada.png",
+        alt: "Arreglo floral elegante con flores moradas y tonos profundos",
       },
       {
-        title: "Enchanted Petals",
+        title: "Violet Pink",
         description:
-          "Composición romántica con flores de tonos cálidos y follaje natural.",
+          "Composición romántica con flores en tonos violetas y rosas suaves.",
         price: "1,000 MXN",
-        src: "/images/home/ramojardin.webp",
-        alt: "Arreglo floral romántico con flores rosas y rojas",
+        src: "/images/home/violet-pink.png",
+        alt: "Arreglo floral romántico con flores violetas y rosas",
       },
       {
-        title: "Harmony Bouquet",
+        title: "Naranja Tropical",
         description:
-          "Bouquet colorido con presencia visual, ideal para regalar en ocasiones especiales.",
+          "Bouquet vibrante con flores naranjas, ideal para celebrar momentos especiales.",
         price: "1,000 MXN",
-        src: "/images/home/colorido.webp",
-        alt: "Bouquet colorido con flores naranjas, rosas y tonos profundos",
+        src: "/images/home/naranja.png",
+        alt: "Bouquet colorido con flores naranjas y tonos cálidos",
       },
     ],
   },
@@ -69,10 +69,10 @@ export const homeEs = {
     eyebrow: "Hecho con intención",
     title: "Perfumando recuerdos, tejiendo memorias con flores",
     description:
-      "Nacida de una profunda pasión por las flores y la belleza natural, Línea Morada es un refugio donde cada arreglo se crea con cuidado, intención y sensibilidad. Cada flor es seleccionada con esmero para transformar momentos cotidianos en recuerdos llenos de amor, alegría y elegancia.",
+      "Nacida de una profunda pasión por las flores y la belleza natural, nuestra floristería es un refugio donde cada arreglo se crea con cuidado, intención y sensibilidad. Cada flor es seleccionada con esmero para transformar momentos cotidianos en recuerdos llenos de amor, alegría y elegancia.",
     quote:
       "Las flores no solo decoran: también comunican cariño, gratitud, amor y presencia.",
-    author: "Equipo Línea Morada",
+    author: "Nuestro equipo",
     image: {
       src: "/images/home/acomodandoflores.webp",
       alt: "Florista acomodando flores y preparando un arreglo floral",
@@ -93,7 +93,7 @@ export const homeEs = {
         title: "Línea Morada",
         description: "Arreglo premium con flores moradas y verdes profundos.",
         price: "$1,250 MXN",
-        src: "/images/home/florerogrande.webp",
+        src: "/images/home/morada.png",
         alt: "Arreglo floral morado premium en florero elegante",
       },
       {
@@ -104,33 +104,32 @@ export const homeEs = {
         alt: "Arreglo floral claro con flores elegantes",
       },
       {
-        title: "Jardín Encantado",
-        description: "Composición romántica con flores rosas y rojas.",
+        title: "Violet Pink",
+        description: "Composición romántica con flores violetas y rosas.",
         price: "$1,000 MXN",
-        src: "/images/home/ramojardin.webp",
-        alt: "Arreglo floral romántico con flores rosas",
+        src: "/images/home/violet-pink.png",
+        alt: "Arreglo floral romántico con flores violetas y rosas",
       },
       {
-        title: "Brisa Colorida",
+        title: "Naranja Tropical",
         description: "Bouquet vibrante para celebrar momentos especiales.",
         price: "$1,000 MXN",
-        src: "/images/home/colorido.webp",
-        alt: "Ramo colorido con flores cálidas",
+        src: "/images/home/naranja.png",
+        alt: "Ramo colorido con flores naranjas y cálidas",
       },
       {
         title: "Encanto Natural",
         description: "Arreglo fresco para decorar mesas, entradas o regalos.",
         price: "$940 MXN",
-        src: "/images/home/florespequenas.webp",
-        alt: "Arreglo natural con flores frescas sobre fondo oscuro",
+        src: "/images/home/arreglo.png",
+        alt: "Arreglo natural con flores frescas",
       },
       {
-        title: "Taller Floral",
-        description:
-          "Flores preparadas con técnica artesanal y atención al detalle.",
+        title: "Gran Arreglo",
+        description: "Pieza de gran formato, perfecta para eventos y espacios.",
         price: "$1,050 MXN",
-        src: "/images/home/acomodandoflores.webp",
-        alt: "Florista trabajando con flores en taller floral",
+        src: "/images/home/arreglogrande.png",
+        alt: "Arreglo floral grande con flores coloridas para eventos",
       },
     ],
   },
@@ -139,7 +138,7 @@ export const homeEs = {
     eyebrow: "Apertura especial web",
     title: "20% de descuento en tu primer arreglo floral",
     description:
-      "Celebra nuestra apertura digital con un detalle especial para ti. Recibe 20% de descuento en tu primer arreglo floral y elige una pieza diseñada con flores frescas, colores delicados y el cuidado artesanal que distingue a Línea Morada.",
+      "Celebra nuestra apertura digital con un detalle especial para ti. Recibe 20% de descuento en tu primer arreglo floral y elige una pieza diseñada con flores frescas, colores delicados y el cuidado artesanal que nos distingue.",
     ctaLabel: "Cotizar",
     ctaHref: "#contacto",
     images: [
@@ -166,12 +165,12 @@ export const homeEs = {
         alt: "Ramo floral pequeño con flores frescas",
       },
       {
-        src: "/images/home/floreria.webp",
-        alt: "Floristería con flores exhibidas en aparador",
+        src: "/images/home/arreglogrande.png",
+        alt: "Arreglo floral grande con flores coloridas",
       },
       {
-        src: "/images/home/colorido.webp",
-        alt: "Detalle de flores coloridas",
+        src: "/images/home/morada.png",
+        alt: "Detalle de arreglo con flores moradas",
       },
     ],
   },

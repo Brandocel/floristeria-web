@@ -6,8 +6,9 @@ import {
   mainNavigation,
 } from "@/shared/config/navigation";
 import { siteConfig } from "@/shared/config/site";
-import { MobileMenu } from "./MobileMenu";
 import { CartButton } from "./CartButton";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+import { MobileMenu } from "./MobileMenu";
 
 type HeaderProps = {
   locale: Locale;
@@ -48,8 +49,12 @@ export function Header({ locale }: HeaderProps) {
           {siteConfig.shortName}
         </Link>
 
-        {/* Derecha: búsqueda + carrito */}
-        <div className="flex items-center justify-end gap-[22px]">
+        {/* Derecha: idioma + búsqueda + carrito */}
+        <div className="flex items-center justify-end gap-5">
+          <LocaleSwitcher currentLocale={locale} />
+
+          <div className="h-3 w-px bg-[#DBCCBA]" aria-hidden="true" />
+
           <Link
             href={`/${locale}#catalogo`}
             aria-label="Ir al catálogo"
