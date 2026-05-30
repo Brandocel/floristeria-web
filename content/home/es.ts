@@ -39,7 +39,7 @@ export const homeEs = {
       "En nuestra floristería nos enorgullecemos de ofrecer una selecta colección de flores capaces de conquistar corazones y despertar emociones profundas. Explora nuestro paraíso floral y déjate cautivar por la belleza atemporal de cada arreglo.",
     items: [
       {
-        title: "Línea Morada",
+        title: "Violeta Premium",
         description:
           "Arreglo floral elegante con flores moradas, textura natural y una composición delicada.",
         price: "1,250 MXN",
@@ -69,7 +69,7 @@ export const homeEs = {
     eyebrow: "Hecho con intención",
     title: "Perfumando recuerdos, tejiendo memorias con flores",
     description:
-      "Nacida de una profunda pasión por las flores y la belleza natural, nuestra floristería es un refugio donde cada arreglo se crea con cuidado, intención y sensibilidad. Cada flor es seleccionada con esmero para transformar momentos cotidianos en recuerdos llenos de amor, alegría y elegancia.",
+      "Nacida de una profunda pasión por las flores y la belleza natural, somos un refugio donde cada arreglo se crea con cuidado, intención y sensibilidad. Cada flor es seleccionada con esmero para transformar momentos cotidianos en recuerdos llenos de amor, alegría y elegancia.",
     quote:
       "Las flores no solo decoran: también comunican cariño, gratitud, amor y presencia.",
     author: "Nuestro equipo",
@@ -90,7 +90,7 @@ export const homeEs = {
       "Elige entre ramos románticos, arreglos elegantes, detalles para cumpleaños y piezas especiales para eventos.",
     items: [
       {
-        title: "Línea Morada",
+        title: "Violeta Premium",
         description: "Arreglo premium con flores moradas y verdes profundos.",
         price: "$1,250 MXN",
         src: "/images/home/morada.png",
@@ -158,7 +158,7 @@ export const homeEs = {
     title: "Mantente cerca: sigue nuestro viaje lleno de flores y belleza",
     description:
       "Compartimos nuevos arreglos, ideas para regalar, inspiración floral y momentos detrás de cada ramo.",
-    handle: "@lineamorada.floristeria",
+    handle: "@tufloristeria",
     images: [
       {
         src: "/images/home/florespequenas.webp",

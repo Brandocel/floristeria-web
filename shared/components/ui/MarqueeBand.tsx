@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const items = [
-  "Línea Morada",
+  "Tu Floristería",
   "·",
   "Ramos Artesanales",
   "·",

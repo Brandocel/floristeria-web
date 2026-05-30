@@ -39,7 +39,7 @@ export const homeEn = {
       "A selection of fresh, romantic and textured arrangements for meaningful gifts and beautiful spaces.",
     items: [
       {
-        title: "Purple Line",
+        title: "Violet Premium",
         description: "Elegant floral arrangement with deep purple flowers and natural texture.",
         price: "$1,250 MXN",
         src: "/images/home/morada.png",
@@ -87,7 +87,7 @@ export const homeEn = {
       "Choose from romantic bouquets, elegant arrangements, birthday gifts and special pieces for events.",
     items: [
       {
-        title: "Purple Line",
+        title: "Violet Premium",
         description: "Premium arrangement with purple flowers and deep greens.",
         price: "$1,250 MXN",
         src: "/images/home/morada.png",
@@ -155,7 +155,7 @@ export const homeEn = {
     title: "Stay close: follow our journey full of flowers and beauty",
     description:
       "We share new arrangements, floral inspiration and behind-the-scenes moments from every bouquet.",
-    handle: "@lineamorada.floristeria",
+    handle: "@tufloristeria",
     images: [
       {
         src: "/images/home/florespequenas.webp",
