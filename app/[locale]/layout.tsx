@@ -3,11 +3,13 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/shared/components/layout/Footer";
 import { Header } from "@/shared/components/layout/Header";
 import { CartDrawer } from "@/shared/components/ui/CartDrawer";
+import { CartFlyOverlay } from "@/shared/components/ui/CartFlyOverlay";
 import { CustomCursor } from "@/shared/components/ui/CustomCursor";
 import { ImageLightbox } from "@/shared/components/ui/ImageLightbox";
 import { ScrollProgress } from "@/shared/components/ui/ScrollProgress";
 import { SmoothScroll } from "@/shared/providers/SmoothScroll";
 import { CartProvider } from "@/shared/store/cart";
+import { CartFlyProvider } from "@/shared/store/cartFly";
 import { LightboxProvider } from "@/shared/store/lightbox";
 import { isLocale, locales } from "@/shared/config/locales";
 
@@ -27,17 +29,20 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <LightboxProvider>
-      <CartProvider>
-        <SmoothScroll>
-          <ScrollProgress />
-          <CustomCursor />
-          <Header locale={locale} />
-          {children}
-          <Footer locale={locale} />
-          <CartDrawer />
-          <ImageLightbox />
-        </SmoothScroll>
-      </CartProvider>
+      <CartFlyProvider>
+        <CartProvider>
+          <SmoothScroll>
+            <ScrollProgress />
+            <CustomCursor />
+            <Header locale={locale} />
+            {children}
+            <Footer locale={locale} />
+            <CartDrawer />
+            <ImageLightbox />
+            <CartFlyOverlay />
+          </SmoothScroll>
+        </CartProvider>
+      </CartFlyProvider>
     </LightboxProvider>
   );
 }

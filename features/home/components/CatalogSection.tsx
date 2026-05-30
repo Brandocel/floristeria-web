@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useCart } from "@/shared/store/cart";
+import { useCartFly } from "@/shared/store/cartFly";
 import type { HomeContent, ProductCard } from "../types/home.types";
 
 type CatalogSectionProps = {
@@ -19,7 +20,9 @@ type CatalogCardProps = {
 
 function CatalogCard({ item, index }: CatalogCardProps) {
   const { addItem } = useCart();
+  const { triggerFly } = useCartFly();
   const [added, setAdded] = useState(false);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   function handleAdd() {
     addItem({
@@ -29,6 +32,12 @@ function CatalogCard({ item, index }: CatalogCardProps) {
       src: item.src,
       alt: item.alt,
     });
+
+    // Dispara la animación de vuelo desde el centro de la imagen
+    if (imgRef.current) {
+      triggerFly(item.src, imgRef.current.getBoundingClientRect());
+    }
+
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   }
@@ -46,6 +55,7 @@ function CatalogCard({ item, index }: CatalogCardProps) {
       }}
     >
       <div
+        ref={imgRef}
         className="relative h-[330px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[360px] lg:h-[340px] xl:h-[365px]"
         data-cursor="view"
       >
