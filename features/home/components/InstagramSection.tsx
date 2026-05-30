@@ -11,11 +11,6 @@ type InstagramSectionProps = {
   social: HomeContent["social"];
 };
 
-const revealVariants = {
-  hidden: { clipPath: "inset(100% 0 0 0)" },
-  visible: { clipPath: "inset(0% 0 0 0)" },
-};
-
 export function InstagramSection({ social }: InstagramSectionProps) {
   const [mainImage, secondImage, thirdImage] = social.images;
 
@@ -25,31 +20,34 @@ export function InstagramSection({ social }: InstagramSectionProps) {
         {/* Columna izquierda */}
         <div className="flex flex-col">
           {mainImage ? (
-            <motion.div
+            <div
               className="relative h-[360px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[460px] lg:h-[430px] xl:h-[465px]"
-              variants={revealVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               data-cursor="view"
             >
-              <Image
-                src={mainImage.src}
-                alt={mainImage.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 560px"
-                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
-              />
-            </motion.div>
+              <motion.div
+                className="absolute inset-0"
+                initial={{ clipPath: "inset(100% 0 0 0)" }}
+                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image
+                  src={mainImage.src}
+                  alt={mainImage.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 560px"
+                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
+                />
+              </motion.div>
+            </div>
           ) : null}
 
           <motion.p
             className="mt-10 max-w-[510px] font-[var(--font-shanti)] text-[15px] font-normal leading-[1.6] text-[#2C2C2C] md:text-[16px]"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             {social.description}
           </motion.p>
@@ -60,7 +58,7 @@ export function InstagramSection({ social }: InstagramSectionProps) {
           <motion.div
             initial={{ opacity: 0, y: 34 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="mb-5 font-[var(--font-shanti)] text-[13px] font-normal tracking-[0.18em] text-[#7D5940]">
@@ -79,12 +77,7 @@ export function InstagramSection({ social }: InstagramSectionProps) {
                 className="group inline-flex items-center gap-2 font-[var(--font-shanti)] text-[17px] font-normal text-[#2C2C2C] transition-colors duration-200 hover:text-[#7D5940]"
               >
                 <span>{social.handle ?? "@Instagram"}</span>
-                <ArrowUpRight
-                  size={17}
-                  strokeWidth={1.5}
-                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
+                <ArrowUpRight size={17} strokeWidth={1.5} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
 
               <Link
@@ -94,40 +87,38 @@ export function InstagramSection({ social }: InstagramSectionProps) {
                 className="group inline-flex items-center gap-2 font-[var(--font-shanti)] text-[17px] font-normal text-[#2C2C2C] transition-colors duration-200 hover:text-[#7D5940]"
               >
                 <span>Facebook</span>
-                <ArrowUpRight
-                  size={17}
-                  strokeWidth={1.5}
-                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
+                <ArrowUpRight size={17} strokeWidth={1.5} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
             </div>
           </motion.div>
 
           <div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 lg:mt-14">
             {[secondImage, thirdImage].filter(Boolean).map((image, index) => (
-              <motion.div
+              <div
                 key={image.src}
                 className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[330px] lg:h-[315px] xl:h-[340px]"
-                variants={revealVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 1,
-                  delay: 0.14 + index * 0.14,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
                 data-cursor="view"
               >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 360px"
-                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
-                />
-              </motion.div>
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ clipPath: "inset(100% 0 0 0)" }}
+                  whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+                  viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+                  transition={{
+                    duration: 1.1,
+                    delay: 0.1 + index * 0.14,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 360px"
+                    className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
+                  />
+                </motion.div>
+              </div>
             ))}
           </div>
         </div>

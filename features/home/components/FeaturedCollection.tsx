@@ -10,11 +10,6 @@ type FeaturedCollectionProps = {
   popular: HomeContent["popular"];
 };
 
-const revealVariants = {
-  hidden: { clipPath: "inset(100% 0 0 0)" },
-  visible: { clipPath: "inset(0% 0 0 0)" },
-};
-
 export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
   const [mainProduct, secondProduct, thirdProduct] = popular.items;
 
@@ -29,23 +24,26 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
         {/* Columna izquierda */}
         <div className="flex flex-col">
           <article className="group">
-            <motion.div
+            <div
               className="relative h-[420px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[500px] lg:h-[485px]"
-              variants={revealVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               data-cursor="view"
             >
-              <Image
-                src={mainProduct.src}
-                alt={mainProduct.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 520px"
-                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.12]"
-              />
-            </motion.div>
+              <motion.div
+                className="absolute inset-0"
+                initial={{ clipPath: "inset(100% 0 0 0)" }}
+                whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+                viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image
+                  src={mainProduct.src}
+                  alt={mainProduct.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 520px"
+                  className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.13]"
+                />
+              </motion.div>
+            </div>
 
             <div className="mt-4 flex items-start justify-between gap-5">
               <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-none text-[#2C2C2C]">
@@ -62,7 +60,7 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
               className="font-[var(--font-shanti)] text-[15px] leading-[1.55] text-[#2C2C2C] md:text-[16px]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               {popular.description}
@@ -71,7 +69,7 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
@@ -81,12 +79,7 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
                 <span className="relative flex h-full w-full items-center justify-center gap-3 overflow-hidden px-6 font-[var(--font-serif)] text-[17px] font-normal text-[#2C2C2C]">
                   <span className="absolute inset-0 origin-left scale-x-0 bg-[#DBCCBA] transition-transform duration-300 ease-out group-hover:scale-x-100 group-active:scale-x-100" />
                   <span className="relative z-10 whitespace-nowrap">Ver Catálogo</span>
-                  <ArrowRight
-                    size={24}
-                    strokeWidth={1.25}
-                    className="relative z-10 transition-transform duration-300 ease-out group-hover:translate-x-1.5"
-                    aria-hidden="true"
-                  />
+                  <ArrowRight size={24} strokeWidth={1.25} className="relative z-10 transition-transform duration-300 ease-out group-hover:translate-x-1.5" aria-hidden="true" />
                 </span>
               </Link>
             </motion.div>
@@ -99,7 +92,7 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
             className="max-w-[720px]"
             initial={{ opacity: 0, y: 34 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="mb-4 font-[var(--font-shanti)] text-[13px] tracking-[0.14em] text-[#7D5940]">
@@ -113,38 +106,37 @@ export function FeaturedCollection({ popular }: FeaturedCollectionProps) {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
             {[secondProduct, thirdProduct].filter(Boolean).map((item, index) => (
               <article key={item.title} className="group">
-                <motion.div
+                <div
                   className="relative h-[310px] overflow-hidden bg-[#E9DCCE] shadow-[0_22px_60px_rgba(44,44,44,0.07)] md:h-[320px] lg:h-[300px] xl:h-[320px]"
-                  variants={revealVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.12 + index * 0.15,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
                   data-cursor="view"
                 >
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 360px"
-                    className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.12]"
-                  />
-                </motion.div>
+                  <motion.div
+                    className="absolute inset-0"
+                    initial={{ clipPath: "inset(100% 0 0 0)" }}
+                    whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+                    viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+                    transition={{
+                      duration: 1.1,
+                      delay: 0.1 + index * 0.15,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 360px"
+                      className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.13]"
+                    />
+                  </motion.div>
+                </div>
 
                 <motion.div
                   className="mt-4 flex items-start justify-between gap-4"
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.2 + index * 0.15,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.6, delay: 0.15 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <h3 className="font-[var(--font-serif)] text-[20px] font-normal leading-none text-[#2C2C2C]">
                     {item.title}

@@ -8,11 +8,6 @@ type MemorySectionProps = {
   memories: HomeContent["memories"];
 };
 
-const revealVariants = {
-  hidden: { clipPath: "inset(100% 0 0 0)" },
-  visible: { clipPath: "inset(0% 0 0 0)" },
-};
-
 export function MemorySection({ memories }: MemorySectionProps) {
   return (
     <section
@@ -25,7 +20,7 @@ export function MemorySection({ memories }: MemorySectionProps) {
           <motion.div
             initial={{ opacity: 0, y: 34 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="mb-5 font-[var(--font-shanti)] text-[13px] font-normal tracking-[0.18em] text-[#7D5940]">
@@ -36,51 +31,59 @@ export function MemorySection({ memories }: MemorySectionProps) {
             </h2>
           </motion.div>
 
-          <motion.div
+          {/* Imagen izquierda: contenedor fija las dimensiones, motion.div anima el reveal */}
+          <div
             className="relative mt-9 h-[340px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[430px] lg:mt-10 lg:h-[405px] xl:h-[430px]"
-            variants={revealVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
             data-cursor="view"
           >
-            <Image
-              src={memories.image.src}
-              alt={memories.image.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 620px"
-              className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
-            />
-          </motion.div>
+            <motion.div
+              className="absolute inset-0"
+              initial={{ clipPath: "inset(100% 0 0 0)" }}
+              whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+              viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+              transition={{ duration: 1.1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Image
+                src={memories.image.src}
+                alt={memories.image.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 620px"
+                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
+              />
+            </motion.div>
+          </div>
         </div>
 
         {/* Columna derecha */}
         <div className="flex flex-col">
-          <motion.div
+          {/* Imagen derecha */}
+          <div
             className="relative h-[320px] w-full overflow-hidden bg-[#E9DCCE] shadow-[0_24px_70px_rgba(44,44,44,0.08)] md:h-[400px] lg:h-[360px] xl:h-[385px]"
-            variants={revealVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
             data-cursor="view"
           >
-            <Image
-              src={memories.secondaryImage.src}
-              alt={memories.secondaryImage.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 560px"
-              className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.12]"
-            />
-          </motion.div>
+            <motion.div
+              className="absolute inset-0"
+              initial={{ clipPath: "inset(100% 0 0 0)" }}
+              whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+              viewport={{ once: true, amount: 0.01, margin: "0px 0px 120px 0px" }}
+              transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Image
+                src={memories.secondaryImage.src}
+                alt={memories.secondaryImage.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 560px"
+                className="scale-[1.08] object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.13]"
+              />
+            </motion.div>
+          </div>
 
           <motion.div
             className="mt-12 max-w-[560px] lg:mt-16 xl:mt-20"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.75, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="font-[var(--font-shanti)] text-[15px] font-normal leading-[1.7] text-[#2C2C2C] md:text-[16px]">
               {memories.description}
